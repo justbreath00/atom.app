@@ -1,4 +1,4 @@
 <?php
-    require_once '../app/view/dashboard.php';
+    require_once '../app/view/user/dashboard.php';
 
 ?>

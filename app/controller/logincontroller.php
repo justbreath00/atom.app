@@ -26,9 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $authModel = new UserModel($pdo);
         $user = $authModel->getUserByEmail($email);
 
-        if ($user && password_verify($password, $user['Password'])) {
-            $_SESSION['user_id'] = $user['UserID'];
-            $_SESSION['role'] = $user['Role'];
+        if ($user && password_verify($password, $user['password'])) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
             $_SESSION['authenticated'] = true;
 
             $response = ['success' => true];
@@ -36,11 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $response = ['success' => false, 'errors' => ['Invalid email or password.']];
         }
     } else {
-        $response = ['success' => false, 'errors' => $errors];
+        $_SESSION['errors'] = implode(' ,' , $errors);
+        header('location: ../../public/login.php');
+        exit;
     }
 
-    header('Content-Type: application/json');
-    echo json_encode($response);
+    header("Location: ../../public/dashboard.php");
     exit;
 }
-require_once dirname(__DIR__) . '/views/user/login.php';
+
