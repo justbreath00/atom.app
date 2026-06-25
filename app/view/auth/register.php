@@ -1,9 +1,13 @@
+<?php
+   require_once '../app/utils/session.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atomic-Bits</title>
+    <title>Sign up</title>
     <link rel="stylesheet" href="assets/css/auth.css">
 </head>
 <body>
@@ -55,7 +59,7 @@
                 </div>
 
                 <!-- ── PRESERVED: action /register, method post, id login-form, all names/ids ── -->
-                <form action="/register" method="post" id="login-form" class="auth-form" novalidate>
+                <form action="register_controller.php" method="POST" id="login-form" class="auth-form" novalidate>
 
                     <!-- Full Name -->
                     <div class="field-group">
@@ -149,6 +153,9 @@
 
                     <!-- Error message — PRESERVED id and role -->
                     <div id="error-message" role="alert" class="error-msg" style="display:none;"></div>
+                    
+                    <span><?php echo $_SESSION['msg']; ?></span>
+                    
 
                     <!-- Submit — PRESERVED original value -->
                     <button type="submit" class="btn-primary">Create Account</button>

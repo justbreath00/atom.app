@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__DIR__) . '/../config/config.php';
+require_once  '../config/connect.php';
 
 class UserModel
 {
@@ -9,6 +9,42 @@ class UserModel
     {
         $this->pdo = $pdo;
     }
+// used for login and verify the email if already exist
+    public function getUserByEmail($email)
+    {
+        $query = 'SELECT * FROM users WHERE BINARY email = :email';
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindValue(':email', $email);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user;
+    }
+
+     public function register($username, $email, $password){
+        $hashedpassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $query = 'SELECT COUNT(*) FROM users WHERE BINARY username = :username';
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindValue(':username', $username);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+
+        if($count === 0){
+            $query = 'INSERT INTO users (username, email, password)
+                      VALUES( :username, :email, :password)';
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(':username', $username);
+            $stmt->bindValue(':email', $email);
+            $stmt->bindValue(':password', $hashedpassword);
+            $stmt->execute();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
 
     public function getAllUsers($perPage, $currentPage)
     {
@@ -44,56 +80,9 @@ class UserModel
         return $edituser;
     }
 
-    public function register($username, $email, $password){
-        $hashedpassword = password_hash($password, PASSWORD_DEFAULT);
+   
 
-        $query = 'SELECT COUNT(*) FROM users WHERE BINARY username = :username AND email = :email';
-        $stmt = $this->pdo->prepare($query);
-        $stmt->bindValue(':username', $username);
-        $stmt->bindValue(':email', $email);
-        $stmt->execute();
-        $count = $stmt->fetchColumn();
-
-        if($count === 0){
-            $query = 'INSERT INTO users (username, email, password)
-                      VALUES( :username, :email, :password)';
-            $stmt = $this->pdo->prepare($query);
-            $stmt->bindValue(':username', $username);
-            $stmt->bindValue(':email', $email);
-            $stmt->bindValue(':password', $hashedpassword);
-            $stmt->execute();
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-    public function addUser($username, $role, $password)
-    {
-        $hashedpassword = password_hash($password, PASSWORD_DEFAULT);
-
-        // Check if the username already exists
-        $query = 'SELECT COUNT(*) FROM user WHERE BINARY username = :username and  ';
-        $stmt = $this->pdo->prepare($query);
-        $stmt->bindValue(':username', $username);
-        $stmt->execute();
-        $count = $stmt->fetchColumn();
-
-        if ($count === 0) {
-            // Insert the new user if the username doesn't exist
-            $query = 'INSERT INTO user (Username, Password, Role) VALUES (:username, :password, :role)';
-            $stmt = $this->pdo->prepare($query);
-            $stmt->bindValue(':username', $username);
-            $stmt->bindValue(':password', $hashedpassword);
-            $stmt->bindValue(':role', $role);
-            $stmt->execute();
-
-            return true;
-        } else {
-            return false;
-        }
-    }
+   
 
     public function getUserById($userid)
     {
@@ -104,14 +93,7 @@ class UserModel
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         return $user;
     }
-    public function getUserByEmail($email)
-    {
-        $query = 'SELECT * FROM user WHERE BINARY Email = :email';
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute(['email' => $email]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $user;
-    }
+    
 
     public function getTotalUsers()
     {

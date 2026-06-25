@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Atomic-Bits — Tiny habits. Massive progress.</title>
+<title>Atomic-Bits</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
@@ -20,13 +20,14 @@
     <a href="#top" class="logo">Atomic-Bits</a>
 
     <nav class="main-nav" id="mainNav">
-      <a href="#about">About</a>
-      <a href="#features">Features</a>
-      <a href="#testimonials">Testimonials</a>
-      <a href="#faq">FAQ</a>
+      <a href="#about" class="nav">About</a>
+      <a href="#features" class="nav">Features</a>
+      <a href="#testimonials" class="nav">Testimonials</a>
+      <a href="#faq" class="nav">FAQ</a>
+      <a href="register.php" class="btn btn-primary btn-cta header-cta">Get Started</a>
     </nav>
 
-    <a href="#get-started" class="btn btn-primary btn-cta header-cta">Get Started</a>
+   
 
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -38,7 +39,7 @@
     <a href="#features">Features</a>
     <a href="#testimonials">Testimonials</a>
     <a href="#faq">FAQ</a>
-    <a href="#get-started" class="btn btn-primary btn-cta">Get Started</a>
+    <a href="register.php" class="btn btn-primary btn-cta">Get Started</a>
   </nav>
 </header>
 
@@ -56,20 +57,27 @@
           quietly do what motivation can't.
         </p>
         <div class="hero-actions">
-          <a href="#get-started" class="btn btn-primary btn-lg btn-cta">Get Started</a>
+          <a href="register.php" class="btn btn-primary btn-lg btn-cta">Get Started</a>
           <a href="#features" class="btn btn-ghost btn-lg">See Features</a>
         </div>
       </div>
 
       <div class="hero-scene" data-reveal="fade-left">
         <!-- floating task cards behind mascot -->
+         
         <div class="float-card card-1">📌 Finish thesis outline</div>
         <div class="float-card card-2">✅ Group project — Ch. 4</div>
         <div class="float-card card-3">🔥 7-day streak</div>
 
+        
         <div class="mascot-stage" data-parallax="0.04">
           <div class="desk-glow"></div>
-          <div class="pixel-ghost" data-mood="default" data-size="9" aria-hidden="true"></div>
+          <img
+                src="assets/.gif/gho-coding.gif"
+                class="ghosty-img"
+                alt="Ghosty coding"
+            >
+          
           <span class="desk-prop prop-mug" aria-hidden="true">☕</span>
           <span class="desk-prop prop-notes" aria-hidden="true">🗒️</span>
           <span class="desk-prop prop-window prop-window-1" aria-hidden="true"></span>
@@ -139,7 +147,11 @@
           <span class="note note-1" aria-hidden="true">♪</span>
           <span class="note note-2" aria-hidden="true">♫</span>
           <span class="note note-3" aria-hidden="true">♪</span>
-          <div class="pixel-ghost" data-mood="chill" data-size="9" aria-hidden="true"></div>
+         <img
+                src="assets/.gif/gho-sleeping.gif"
+                class="ghosty-img"
+                alt="Ghosty coding"
+            >
           <span class="desk-prop prop-mug prop-mug-chill" aria-hidden="true">☕</span>
         </div>
 
@@ -260,7 +272,7 @@
             <span class="accordion-icon">+</span>
           </button>
           <div class="accordion-panel">
-            <p>Atomic-Bits was built by Rain, a student at the University of Eastern Pangasinan, to make university productivity feel a little less heavy.</p>
+            <p>Atomic-Bits was built by renier, a student at the University of Eastern Pangasinan, to make university productivity feel a little less heavy.</p>
           </div>
         </div>
       </div>
@@ -307,9 +319,9 @@
     </nav>
   </div>
 
-  <p class="footer-copy">Built with coffee and curiosity by Rain.</p>
+  <p class="footer-copy">Built with coffee and curiosity by renier.</p>
 </footer>
 
-<script src="script.js"></script>
+<script src="assets/js/script.js"></script>
 </body>
 </html>

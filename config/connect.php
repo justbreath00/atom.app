@@ -1,6 +1,6 @@
 <?php
     $server = "localhost";
-    $database = "atomdb";
+    $database = "atomic_db";
     $username = "root";
     $password = "";
 

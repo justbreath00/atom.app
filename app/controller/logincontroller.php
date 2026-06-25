@@ -1,6 +1,6 @@
 <?php
-require_once dirname(__DIR__) . '/models/authmodel.php';
-require dirname(__DIR__) . '/utils/session.php';
+require_once "../app/model/authmodel.php";
+require_once  "../app/utils/session.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'] ?? '';
@@ -32,16 +32,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['authenticated'] = true;
 
             $response = ['success' => true];
+            header("Location: dashboard.php");
+            exit;
         } else {
             $response = ['success' => false, 'errors' => ['Invalid email or password.']];
+            header('location: login.php');
+            exit;
+
         }
     } else {
         $_SESSION['errors'] = implode(' ,' , $errors);
-        header('location: ../../public/login.php');
+        header('location: login.php');
         exit;
     }
 
-    header("Location: ../../public/dashboard.php");
-    exit;
+    
 }
 

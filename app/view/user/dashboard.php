@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    require_once '../app/utils/session.php';
     if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
         header('Location: login.php');
         exit;
@@ -13,9 +13,12 @@
     <title>dash board</title>
 </head>
 <body>
+    <?php include "../app/view/includes/header.php";?>
     <h1>Dashboard</h1>`
     <p>Welcome, <?php echo $_SESSION['username']; ?>!</p>
     <span><?php echo $_SESSION['success'] ?? ''; ?></span>
+
+    <a href="logout.php">logout</a>
     
 
 </body>

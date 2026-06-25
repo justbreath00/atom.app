@@ -55,7 +55,7 @@
                 </div>
 
                 <!-- ── PRESERVED: action, method, all names/ids ── -->
-                <form action="/login" method="post" class="auth-form" novalidate>
+                <form action="login_controller.php" method="POST" class="auth-form" novalidate id="login-form">
 
                     <!-- Email -->
                     <div class="field-group">
