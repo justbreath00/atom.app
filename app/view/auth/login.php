@@ -1,3 +1,7 @@
+<?php
+   require_once '../app/utils/session.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -105,6 +109,7 @@
 
                     <!-- Error message — PRESERVED id and role -->
                     <div id="error-message" role="alert" class="error-msg" style="display:none;"></div>
+                    <span><?php if(!empty($_SESSION['msg'])){echo $_SESSION['msg'];} ?></span>
 
                     <!-- Submit — PRESERVED name value -->
                     <button type="submit" class="btn-primary">Sign In</button>

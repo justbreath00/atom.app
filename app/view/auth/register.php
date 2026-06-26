@@ -154,7 +154,7 @@
                     <!-- Error message — PRESERVED id and role -->
                     <div id="error-message" role="alert" class="error-msg" style="display:none;"></div>
                     
-                    <span><?php echo $_SESSION['msg']; ?></span>
+                    <span><?php if(!empty($_SESSION['msg'])){echo $_SESSION['msg'];} ?></span>
                     
 
                     <!-- Submit — PRESERVED original value -->

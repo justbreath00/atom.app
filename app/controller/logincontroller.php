@@ -27,8 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $authModel->getUserByEmail($email);
 
         if ($user && password_verify($password, $user['password'])) {
+
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
+            
+            
+            $_SESSION['profile'] = $user['username'][0]; 
+            
             $_SESSION['authenticated'] = true;
 
             $response = ['success' => true];

@@ -55,6 +55,7 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST'){
                     if ($user) {
                         $_SESSION['userid'] = $user['id'];
                         $_SESSION['username'] = $user['username'];
+                         $_SESSION['profile'] = $user['username'][0]; 
                         $_SESSION['authenticated'] = true;
 
                         $_SESSION['success'] = "Welcome! Your account has been created successfully.";
