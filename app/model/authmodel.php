@@ -1,7 +1,7 @@
 <?php
 require_once  '../config/connect.php';
 
-class UserModel
+class AuthModel
 {
     private $pdo;
 
@@ -19,8 +19,19 @@ class UserModel
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         return $user;
     }
-
-     public function register($username, $email, $password){
+// used for verify the course
+    public function getCourseByCourseCode($course)
+    {
+        $query = 'SELECT * FROM courses WHERE BINARY course_code = :course LIMIT 1';
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindValue(':course', $course);
+        $stmt->execute();
+        $course = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $course;
+    }
+    
+//user register
+     public function register($username, $email, $course_id, $password){
         $hashedpassword = password_hash($password, PASSWORD_DEFAULT);
 
         $query = 'SELECT COUNT(*) FROM users WHERE BINARY username = :username';
@@ -30,11 +41,12 @@ class UserModel
         $count = $stmt->fetchColumn();
 
         if($count === 0){
-            $query = 'INSERT INTO users (username, email, password)
-                      VALUES( :username, :email, :password)';
+            $query = 'INSERT INTO users (username, email, course_id, password)
+                      VALUES( :username, :email, :course, :password)';
             $stmt = $this->pdo->prepare($query);
-            $stmt->bindValue(':username', $username);
+            $stmt->bindValue(':username', $username); 
             $stmt->bindValue(':email', $email);
+            $stmt->bindValue(':course', $course_id);
             $stmt->bindValue(':password', $hashedpassword);
             $stmt->execute();
             return true;
@@ -44,7 +56,44 @@ class UserModel
         }
     }
 
+    
 
+
+//set user last login
+   public function setLastLogin($id, $ip, $agent)
+    {
+        $query = 'UPDATE users
+        SET
+            last_login_at = NOW(),
+            last_login_ip = :ip,
+            last_user_agent = :agent
+        WHERE id = :id;';
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindValue(':id', $id);
+        $stmt->bindValue(':ip', $ip);
+        $stmt->bindValue(':agent', $agent);
+        $stmt->execute();
+        return true;
+    }
+   
+
+    public function getUserProfile($email)
+    {
+        
+        $query = " SELECT
+                users.*,
+                courses.course_code,
+                courses.course_name
+            FROM users
+            LEFT JOIN courses
+                ON users.course_id = courses.id
+            WHERE users.email = :email";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindValue(':email', $email);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user;
+    }
 
     public function getAllUsers($perPage, $currentPage)
     {

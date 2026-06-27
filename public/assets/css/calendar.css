@@ -1,0 +1,41 @@
+/* Atomic-Bits — calendar.php
+   Weekly timetable grid with sticky day-of-week header
+   and sticky time column. */
+
+.timetable-wrap{
+  overflow-x:auto;border:1px solid var(--border);
+  border-radius:var(--radius-card);background:var(--bg);
+}
+.timetable{
+  display:grid;
+  grid-template-columns:80px repeat(6,minmax(140px,1fr));
+  min-width:920px;
+}
+.tt__corner,.tt__dow,.tt__time,.tt__cell{
+  border-bottom:1px solid var(--border);
+  border-right:1px solid var(--border);
+  padding:8px;
+}
+.tt__dow{
+  position:sticky;top:0;background:var(--bg);z-index:2;
+  text-align:center;font-weight:600;font-size:13px;
+}
+.tt__dow.is-today{color:var(--primary)}
+.tt__dow.is-today::after{
+  content:"";display:block;width:24px;height:3px;border-radius:2px;
+  background:var(--primary);margin:6px auto 0;
+}
+.tt__time{
+  position:sticky;left:0;background:var(--bg);z-index:1;
+  font-size:11px;color:var(--muted);text-align:right;
+}
+.tt__corner{position:sticky;left:0;top:0;background:var(--bg);z-index:3}
+.tt__cell{min-height:64px;position:relative}
+.tt__cell.is-today{background:#FAFBFF}
+.tt__event{
+  border-radius:10px;padding:8px 10px;color:#fff;
+  display:flex;flex-direction:column;gap:2px;height:100%;
+}
+.tt__event-title{font-weight:600;font-size:12px}
+.tt__event-room{font-size:11px;opacity:.9}
+.tt__event.is-now{outline:2px solid #fff;box-shadow:0 0 0 3px var(--primary)}

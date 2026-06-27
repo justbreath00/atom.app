@@ -91,6 +91,28 @@
                                    placeholder="you@example.com" required autocomplete="email">
                         </div>
                     </div>
+                    <!-- Course -->
+                     <div class="field-group">
+                        <label for="course" class="field-label">Course</label>
+
+                        <div class="input-wrap course-container">
+                            <span class="input-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 14L3 9l9-5 9 5-9 5z"></path>
+                                    <path d="M3 9v6"></path>
+                                    <path d="M21 9v6"></path>
+                                    <path d="M7 11.5v3.5c0 1.7 2.2 3 5 3s5-1.3 5-3v-3.5"></path>
+                                </svg>
+                            </span>
+
+                            <input
+                                type="text" id="course" name="course" class="field-input"
+                                placeholder="BSIT"autocomplete="off" > 
+
+                            <div id="courseSuggestions" class="suggestions"></div>
+                        </div>
+                    </div>
 
                     <!-- Password -->
                     <div class="field-group">

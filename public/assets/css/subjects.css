@@ -1,0 +1,16 @@
+/* Atomic-Bits — subjects.php
+   Subject card grid items. */
+
+.subject-card{display:flex;flex-direction:column;gap:10px}
+.subject-card__top{
+  height:64px;border-radius:12px;
+  display:flex;align-items:flex-end;padding:10px 12px;color:#fff;font-weight:600;
+}
+.subject-card__type{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.subject-card__title{font-size:16px;font-weight:600}
+.subject-card__meta{color:var(--muted);font-size:12px;display:flex;flex-direction:column;gap:4px}
+.subject-card__foot{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:8px;padding-top:12px;border-top:1px solid var(--border);
+}
+.subject-card__code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--muted)}

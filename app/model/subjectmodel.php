@@ -12,7 +12,7 @@ class subjectModel
     }
 
     public function getSubjectsById($id){
-        
+        $quiry = "SELECT *FROM subjects WHERE user";
     }
 
 

@@ -1,0 +1,15 @@
+/* Atomic-Bits — main stylesheet
+   Single entry point. Link this from _header.php:
+     <link rel="stylesheet" href="css/main.css">
+
+   Order matters: general.css defines tokens and base classes
+   the page-specific files depend on. */
+
+@import url("general.css");
+@import url("dashboard.css");
+@import url("subjects.css");
+@import url("class.css");
+@import url("calendar.css");
+@import url("profile.css");
+@import url("task.css");
+@import url("forms.css");

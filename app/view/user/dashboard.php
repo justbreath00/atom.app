@@ -19,6 +19,7 @@ $subjects = [
           <h2>Greetings, <?php echo $_SESSION['username']; ?></h2>
           <p class="page__sub">You have 3 classes today and 2 tasks due this week.</p>
             <span><?php if(!empty($_SESSION['success'])){ echo $_SESSION['success'] ?? '';} ?></span>
+            <span><?php if(!empty($_SESSION['success_login'])){ echo $_SESSION['success_login'] ?? '';} ?></span>
         </div>
         <a href="create-subject.php" class="btn btn--primary">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>

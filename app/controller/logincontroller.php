@@ -23,18 +23,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-        $authModel = new UserModel($pdo);
+        $authModel = new AuthModel($pdo);
         $user = $authModel->getUserByEmail($email);
 
         if ($user && password_verify($password, $user['password'])) {
+            
+            $id = $user['id'];
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $agent = $_SERVER['HTTP_USER_AGENT'];
 
+            $authModel->setLastLogin($id, $ip, $agent);
+            $_SESSION['success_login'] = "Welcome back! You successfully loged in.";
+
+            $user = $authModel->getUserProfile($email);
+
+            
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
-            
-            
             $_SESSION['profile'] = $user['username'][0]; 
+            $_SESSION['course_code'] = $user['course_code'];
+            $_SESSION['course_name'] = $user['course_name'];
             
             $_SESSION['authenticated'] = true;
+
+            
 
             $response = ['success' => true];
             header("Location: dashboard.php");

@@ -11,15 +11,18 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST'){
         
             $username = $_POST['username'];
             $email = $_POST['email'];
+            $course_code = $_POST['course'];
             $password = $_POST['password'];
             $confirm = $_POST['confirm_password'];
-
+            $authmodel = new AuthModel($pdo);
             $errors = [];
 
-            $usermodel = new UserModel($pdo);
 
-            $existingUser = $usermodel->getUserByEmail($email);
 
+            if (empty($email)) {
+                $errors[] = "email cannot be empty";
+            } 
+            $existingUser = $authmodel->getUserByEmail($email);
             if ($existingUser) {
                 $errors[] = "Email already exists";
             } 
@@ -28,6 +31,13 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST'){
             } 
             if (empty($password)) {
                 $errors[] = "Password cannot be empty";
+            } 
+            if (empty($course_code)) {
+                $errors[] = "Course cannot be empty";
+            } 
+            $course = $authmodel->getCourseByCourseCode($course_code);
+            if (!$course) {
+                $errors[] = "Course Does not exists";
             } 
             if (!preg_match('/^[a-zA-Z][a-zA-Z0-9_]*$/', $username)) {
                 $errors[] = "Username must start with an alphabet, and must only contain alphanumeric characters and underscores.";
@@ -44,18 +54,23 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST'){
                 exit;
 
             }else{
-                $usermodel = new UserModel($pdo);
+                $course = $authmodel->getCourseByCourseCode($course_code);
+                $course_id = $course['id'];
+                $success = $authmodel->register($username, $email, $course_id, $password);
 
-                $success = $usermodel->register($username, $email, $password);
+                
 
                 if ($success) {
-                    $authModel = new UserModel($pdo);
-                    $user = $authModel->getUserByEmail($email);
+                    $user = $authmodel->getUserProfile($email);
+                    
 
                     if ($user) {
                         $_SESSION['userid'] = $user['id'];
                         $_SESSION['username'] = $user['username'];
                          $_SESSION['profile'] = $user['username'][0]; 
+                         $_SESSION['course_code'] = $user['course_code'];
+                         $_SESSION['course_name'] = $user['course_name'];
+                         
                         $_SESSION['authenticated'] = true;
 
                         $_SESSION['success'] = "Welcome! Your account has been created successfully.";
@@ -65,7 +80,7 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST'){
                         exit;
                         }
                 } else {
-                    $_SESSION['errors'] = "Failed to add user.";
+                    $_SESSION['errors'] = "Failed to register.";
                     header('location: register.php');
                 exit;
                 }

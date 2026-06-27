@@ -14,7 +14,7 @@ $navItems = [
   ['key' => 'subjects',  'label' => 'Subjects',  'href' => 'subjects.php',  'icon' => 'book'],
   ['key' => 'class',     'label' => 'Classes',   'href' => 'class.php',     'icon' => 'users'],
   ['key' => 'calendar',  'label' => 'Calendar',  'href' => 'calendar.php',  'icon' => 'calendar'],
-  ['key' => 'tasks',     'label' => 'Tasks',     'href' => '#',             'icon' => 'check', 'soon' => true],
+  ['key' => 'tasks',     'label' => 'Tasks',     'href' => 'task.php',             'icon' => 'check'],
   ['key' => 'daily',     'label' => 'Daily Spread', 'href' => '#',          'icon' => 'layers', 'soon' => true],
   ['key' => 'profile',   'label' => 'Profile',   'href' => 'profile.php',   'icon' => 'user'],
   ['key' => 'logout',    'label' => 'logout',    'href' => 'logout.php',    'icon' => 'logout'],
@@ -49,7 +49,7 @@ function ab_icon($name) {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/general.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
 </head>
 <body>
   <a class="sr-skip" href="#main">Skip to content</a>
@@ -94,7 +94,7 @@ function ab_icon($name) {
             <div class="avatar"><?php echo $_SESSION['profile'];  ?></div>
             <div class="profile-card__meta">
               <div class="profile-card__name"><?php echo $_SESSION['username']; ?></div>
-              <div class="profile-card__sub">BSCS · 3rd Year</div>
+              <div class="profile-card__sub"><?php echo $_SESSION['course_code'];  ?></div>
             </div>
           </div>
         </div>
