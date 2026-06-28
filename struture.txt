@@ -1,0 +1,114 @@
+D:.
+├───app
+│   ├───controller
+│   │       calendarcontroller.php
+│   │       logincontroller.php
+│   │       registercontroller.php
+│   │
+│   ├───model
+│   │       authmodel.php
+│   │       classmodel.php
+│   │       subjectmodel.php
+│   │       taskmodel.php
+│   │
+│   ├───private
+│   │   └───assets
+│   │       ├───css
+│   │       ├───icons
+│   │       ├───img
+│   │       └───js
+│   ├───utils
+│   │       logout.php
+│   │       session.php
+│   │
+│   └───view
+│       │   landingpage.php
+│       │
+│       ├───admin
+│       ├───auth
+│       │       login.php
+│       │       register.php
+│       │       resetpass.php
+│       │       terms.php
+│       │
+│       ├───includes
+│       │       footer.php
+│       │       header.php
+│       │       page403.php
+│       │
+│       ├───subject
+│       │       subjectadd.php
+│       │       subjectedit.php
+│       │
+│       ├───tasks
+│       │       addtask.php
+│       │       edittask.php
+│       │
+│       └───user
+│               calendar.php
+│               class.php
+│               dashboard.php
+│               olddashboard calendar.php
+│               profile.php
+│               subjects.php
+│               task.php
+│
+├───config
+│       connect.php
+│
+├───database
+└───public
+    │   calendar.php
+    │   class.php
+    │   dashboard.php
+    │   edittask.php
+    │   index.php
+    │   login.php
+    │   login_controller.php
+    │   logout.php
+    │   profile.php
+    │   register.php
+    │   register_controller.php
+    │   removetask.php
+    │   resetpassword.php
+    │   session.php
+    │   subjects.php
+    │   task.php
+    │   tasks.php
+    │
+    └───assets
+        ├───.gif
+        │       gho-coding.gif
+        │       gho-sleeping.gif
+        │
+        ├───css
+        │       auth.css
+        │       calendar.css
+        │       class.css
+        │       form.css
+        │       general.css
+        │       main.css
+        │       profile.css
+        │       style.css
+        │       subjects.css
+        │       task.css
+        │
+        ├───icons
+        ├───images
+        │       eyeleft-closed.png
+        │       eyeleft.png
+        │       eyeright-closed.png
+        │       eyeright.png
+        │       ghostybase.png
+        │       ghostysmile.png
+        │
+        └───js
+                app.js
+                calendar-fetch.js
+                ghosty.js
+                kanban.js
+                login.js
+                register.js
+                script.js
+                task.js
+                toggle.js

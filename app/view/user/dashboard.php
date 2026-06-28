@@ -79,28 +79,27 @@ $subjects = [
         <span class="skel skel--title"></span>
         <span class="skel skel--block" style="margin-top:10px"></span>
       </div>
-      <div class="card is-hidden" data-content>
-        <div class="cal">
-          <div class="cal__head">
-            <strong>June 2026</strong>
-            <span class="card__meta">Today · 25</span>
-          </div>
-          <div class="cal__grid">
-            <?php foreach (['S','M','T','W','T','F','S'] as $d): ?>
-              <div class="cal__dow"><?= $d ?></div>
-            <?php endforeach; ?>
-            <?php
-              $first = 0; // Sunday offset
-              $days = 30;
-              for ($i=0;$i<$first;$i++) echo '<div class="cal__day is-muted"></div>';
-              for ($d=1;$d<=$days;$d++) {
-                $cls = 'cal__day';
-                if ($d === 25) $cls .= ' is-today';
-                if (in_array($d, [26,28,30])) $cls .= ' has-event';
-                echo "<div class=\"$cls\">$d</div>";
-              }
-            ?>
-          </div>
+
+        <!-- Calendar widget content (JS renders into this) -->
+  <div class="card is-hidden" data-content>
+    <div class="cal">
+
+      <div class="cal__head">
+        <div class="cal__head-nav">
+          <button class="cal__nav-btn" onclick="CalendarWidget.navigate(-1)" aria-label="Previous month">&#8249;</button>
+          <strong data-cal-title></strong>
+          <button class="cal__nav-btn" onclick="CalendarWidget.navigate(1)" aria-label="Next month">&#8250;</button>
+        </div>
+        <span class="card__meta" data-cal-today></span>
+      </div>
+
+      <div class="cal__grid">
+        <!-- Day-of-week headers: static, JS leaves these alone -->
+        <?php foreach (['S','M','T','W','T','F','S'] as $d): ?>
+          <div class="cal__dow"><?= htmlspecialchars($d) ?></div>
+        <?php endforeach; ?>
+        <!-- Day cells: JS renders here, nothing hardcoded -->
+      </div>
           <div class="cal__upcoming">
             <div class="cal__upcoming-item"><span class="cal__upcoming-dot" style="background:#4F46E5"></span> Fri · DSA Lab 4 due</div>
             <div class="cal__upcoming-item"><span class="cal__upcoming-dot" style="background:#7C3AED"></span> Sun · DB problem set</div>
@@ -127,4 +126,5 @@ $subjects = [
     </aside>
   </div>
 </div>
+<script src="assets/js/calendar-fetch.js"></script>
 <?php include '../app/view/includes/footer.php'; ?>

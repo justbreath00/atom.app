@@ -18,8 +18,8 @@ $roleBadge = ['admin'=>'badge--primary','editor'=>'badge--violet','member'=>'bad
       <p class="page__sub">Class blocks group your subjects, members, and schedules.</p>
     </div>
     <div style="display:flex;gap:8px">
-      <a href="#" class="btn btn--secondary">Join Class</a>
-      <a href="create-class.php" class="btn btn--primary">
+      <a href="class-join.php" class="btn btn--secondary">Join Class</a>
+      <a href="class-create.php" class="btn btn--primary">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
         Create Class
       </a>
@@ -39,8 +39,8 @@ $roleBadge = ['admin'=>'badge--primary','editor'=>'badge--violet','member'=>'bad
         <div class="empty__title">No Classes Yet</div>
         <div class="empty__sub">Create a class block for your batch or join an existing one with a class code.</div>
         <div class="empty__actions">
-          <a href="create-class.php" class="btn btn--primary">Create Class</a>
-          <a href="#" class="btn btn--secondary">Join Class</a>
+          <a href="class-create.php" class="btn btn--primary">Create Class</a>
+          <a href="class-join.php" class="btn btn--secondary">Join Class</a>
         </div>
       </div>
     <?php else: ?>

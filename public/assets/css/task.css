@@ -1,7 +1,8 @@
 /* Atomic-Bits — Task module
-   Kanban board, cards, toolbar, pending bar, task details, create-task. */
+   Kanban board, cards, toolbar, pending bar, mobile drop dock, FAB,
+   task details, create-task. */
 
-/* ===== Page shell (no awkward outer scroll on desktop) ===== */
+/* ===== Page shell ===== */
 .task-page{
   display:flex;flex-direction:column;
   padding:20px 28px 24px;
@@ -9,28 +10,66 @@
   min-height:calc(100vh - 0px);
 }
 @media (max-width:1024px){.task-page{padding:16px 20px 20px}}
-@media (max-width:768px){.task-page{padding:14px 16px 16px}}
+@media (max-width:768px){.task-page{padding:14px 16px 96px}} /* bottom space for FAB / dock */
 
-/* ===== Toolbar ===== */
+/* ===== Toolbar (title + Add Task) ===== */
 .task-toolbar{
   display:flex;align-items:flex-start;justify-content:space-between;
   gap:16px;flex-wrap:wrap;
 }
 .task-toolbar__title h2{font-size:22px;margin-bottom:2px}
 .task-toolbar__title p{color:var(--muted);margin:0;font-size:13px}
-.task-toolbar__actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+@media (max-width:768px){
+  .task-toolbar__create{display:none} /* mobile uses FAB */
+}
 
-.task-filters{
-  display:flex;gap:8px;align-items:center;flex-wrap:wrap;
-  padding:10px 12px;background:var(--surface);
+/* ===== Filter bar ===== */
+.filterbar{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 10px;background:var(--surface);
   border:1px solid var(--border);border-radius:var(--radius-card);
 }
-.task-filters .input,
-.task-filters .select{height:36px;font-size:13px}
-.task-filters .input{min-width:220px}
-@media (max-width:600px){
-  .task-filters .input{min-width:0;flex:1}
-  .task-filters .select{flex:1}
+.filterbar__search{flex:1;position:relative;display:flex;align-items:center}
+.filterbar__search-icon{
+  position:absolute;left:12px;color:var(--muted);pointer-events:none;
+}
+.filterbar__input{height:38px;padding-left:34px;background:var(--bg);width:100%}
+.filterbar__controls{
+  display:flex;align-items:center;gap:8px;flex-wrap:nowrap;
+}
+.filterbar__field{
+  display:flex;align-items:center;gap:6px;
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:10px;padding:0 8px 0 10px;height:38px;
+}
+.filterbar__field .select{
+  height:36px;border:0;background:transparent;font-size:13px;padding:0 4px;
+  box-shadow:none;
+}
+.filterbar__lbl{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.filterbar__field--toggle{gap:8px;padding:0 12px;cursor:pointer;font-size:13px;font-weight:500;color:var(--muted)}
+.filterbar__field--toggle input{accent-color:var(--primary);width:14px;height:14px}
+.filterbar__field--toggle:has(input:checked){color:var(--primary);border-color:var(--primary);background:#EEF2FF}
+
+/* Mobile icon row */
+.filterbar__icons{display:none;gap:6px;margin-left:auto}
+.ficon{
+  width:36px;height:36px;display:grid;place-items:center;
+  background:var(--bg);border:1px solid var(--border);border-radius:10px;
+  color:var(--muted);cursor:pointer;
+}
+.ficon:hover{color:var(--text)}
+.ficon.is-active{background:#EEF2FF;border-color:var(--primary);color:var(--primary)}
+
+@media (max-width:768px){
+  .filterbar{padding:8px}
+  .filterbar__search{display:none}
+  .filterbar__controls{display:none}
+  .filterbar__icons{display:flex;margin-left:0;width:100%;justify-content:space-between}
+  .filterbar.is-search-open .filterbar__search{display:flex;flex:1 0 100%;order:-1;margin-bottom:6px}
+  .filterbar.is-controls-open .filterbar__controls{
+    display:flex;flex-wrap:wrap;flex:1 0 100%;order:2;margin-top:6px;
+  }
 }
 
 /* ===== Kanban board ===== */
@@ -51,34 +90,39 @@
   display:flex;flex-direction:column;min-height:0;
   background:var(--surface);border:1px solid var(--border);
   border-radius:var(--radius-card);
-  max-height:calc(100vh - 220px);
+  max-height:calc(100vh - 240px);
+  overflow:hidden;
 }
 @media (max-width:768px){.kanban__column{max-height:calc(100vh - 260px)}}
 
 .kanban__header{
   display:flex;align-items:center;justify-content:space-between;
-  padding:14px 14px 10px;
+  padding:12px 14px;
+  border-bottom:1px solid var(--border);
 }
-.kanban__title{display:flex;align-items:center;gap:8px;font-weight:600;font-size:13px}
-.kanban__dot{width:8px;height:8px;border-radius:50%}
-.kanban__dot--todo{background:#94A3B8}
-.kanban__dot--ongoing{background:var(--warning)}
-.kanban__dot--finished{background:var(--success)}
+.kanban__title{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;letter-spacing:.01em;color:#fff}
+.kanban__dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.85)}
 .kanban__count{
   display:inline-flex;min-width:22px;height:20px;padding:0 7px;
   align-items:center;justify-content:center;
-  background:var(--bg);border:1px solid var(--border);border-radius:999px;
-  font-size:11px;font-weight:600;color:var(--muted);
+  background:rgba(255,255,255,.22);color:#fff;border-radius:999px;
+  font-size:11px;font-weight:700;
 }
+
+/* Column accents */
+.kanban__column--todo .kanban__header{background:#A855F7}
+.kanban__column--ongoing .kanban__header{background:#3B82F6}
+.kanban__column--finished .kanban__header{background:#22C55E}
+
 .kanban__list{
   flex:1;overflow-y:auto;
-  padding:4px 10px 12px;
+  padding:10px 10px 12px;
   display:flex;flex-direction:column;gap:10px;
+  background:var(--surface);
 }
 .kanban__list.is-drop-target{
   background:rgba(79,70,229,.06);
   box-shadow:inset 0 0 0 2px var(--primary);
-  border-radius:12px;
 }
 
 /* ===== Kanban card ===== */
@@ -88,12 +132,24 @@
   box-shadow:var(--shadow-sm);
   display:flex;flex-direction:column;gap:10px;
   cursor:grab;user-select:none;
+  -webkit-user-select:none;-webkit-touch-callout:none;
   transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
 }
 .tcard:hover{transform:translateY(-1px);box-shadow:var(--shadow-md);border-color:#CBD5E1}
 .tcard.is-dragging{opacity:.55;cursor:grabbing;box-shadow:0 8px 24px rgba(15,23,42,.12)}
+.tcard.is-lifted{
+  transform:scale(1.04);
+  box-shadow:0 18px 40px rgba(15,23,42,.22);
+  z-index:160;position:relative;border-color:var(--primary);
+}
 .tcard__head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.tcard__head-right{display:flex;align-items:center;gap:6px}
 .tcard__title{font-weight:600;font-size:14px;line-height:1.35;color:var(--text)}
+.tcard__menu-btn{
+  background:transparent;border:0;width:26px;height:26px;border-radius:8px;
+  color:var(--muted);cursor:pointer;display:grid;place-items:center;
+}
+.tcard__menu-btn:hover{background:var(--surface);color:var(--text)}
 .tcard__desc{color:var(--muted);font-size:12.5px;line-height:1.5;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .tcard__foot{
@@ -108,6 +164,8 @@
 .pri-high .tcard__pri-dot{background:var(--danger)} .pri-high{color:#B91C1C}
 .tcard__view{font-size:12px;font-weight:600;color:var(--primary)}
 .tcard__view:hover{text-decoration:underline}
+.tcard.is-archived-hidden{display:none}
+.tcard.is-flying{transition:transform .35s cubic-bezier(.2,.8,.2,1), opacity .35s ease;pointer-events:none}
 
 /* Skeleton card */
 .tcard-skel{padding:14px}
@@ -121,12 +179,95 @@
 }
 
 /* ===== Empty state (board-wide) ===== */
-.task-empty{
-  display:flex;align-items:center;justify-content:center;
-  padding:48px 24px;
-}
+.task-empty{display:flex;align-items:center;justify-content:center;padding:48px 24px}
 
-/* ===== Floating pending update bar ===== */
+/* ===== Card menu popover ===== */
+.card-menu{
+  position:fixed;z-index:180;min-width:160px;
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:12px;box-shadow:0 12px 32px rgba(15,23,42,.16);
+  padding:6px;display:flex;flex-direction:column;
+}
+.card-menu[hidden]{display:none}
+.card-menu__item{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 10px;border-radius:8px;border:0;background:transparent;
+  font-size:13px;color:var(--text);cursor:pointer;text-align:left;
+}
+.card-menu__item:hover{background:var(--surface)}
+.card-menu__item--danger{color:var(--danger)}
+.card-menu__item--danger:hover{background:#FEF2F2}
+
+/* ===== Generic dialog ===== */
+.ab-dialog{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:20px}
+.ab-dialog[hidden]{display:none}
+.ab-dialog__backdrop{position:absolute;inset:0;background:rgba(15,23,42,.45);backdrop-filter:blur(2px)}
+.ab-dialog__panel{
+  position:relative;background:var(--bg);border-radius:16px;
+  padding:22px;max-width:380px;width:100%;
+  box-shadow:0 20px 60px rgba(15,23,42,.25);
+}
+.ab-dialog__panel h3{font-size:17px;margin-bottom:8px}
+.ab-dialog__panel p{color:var(--muted);font-size:13.5px;margin:0 0 18px;line-height:1.55}
+.ab-dialog__actions{display:flex;justify-content:flex-end;gap:8px}
+
+/* ===== Mobile drop dock + scrim ===== */
+.drop-scrim{
+  position:fixed;inset:0;z-index:140;
+  background:rgba(15,23,42,.35);
+  opacity:0;transition:opacity .2s ease;
+}
+.drop-scrim.is-open{opacity:1}
+.drop-scrim[hidden]{display:none}
+
+.drop-dock{
+  position:fixed;left:12px;right:12px;bottom:12px;z-index:170;
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:22px;padding:14px;
+  box-shadow:0 -10px 30px rgba(15,23,42,.18);
+  transform:translateY(120%);transition:transform .25s cubic-bezier(.2,.8,.2,1);
+}
+.drop-dock.is-open{transform:translateY(0)}
+.drop-dock[hidden]{display:none}
+.drop-dock__hint{
+  text-align:center;font-size:12px;font-weight:600;
+  color:var(--muted);margin-bottom:10px;letter-spacing:.04em;text-transform:uppercase;
+}
+.drop-dock__targets{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.drop-target{
+  border:0;border-radius:18px;padding:18px 8px;color:#fff;
+  font-weight:700;font-size:13px;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  cursor:pointer;transition:transform .12s ease, box-shadow .12s ease;
+}
+.drop-target__dot{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.85)}
+.drop-target--todo{background:#A855F7}
+.drop-target--ongoing{background:#3B82F6}
+.drop-target--finished{background:#22C55E}
+.drop-target.is-over{transform:scale(1.05);box-shadow:0 10px 24px rgba(15,23,42,.25)}
+
+/* ===== Floating Action Button (mobile) ===== */
+.fab{
+  position:fixed;right:18px;bottom:18px;z-index:150;
+  display:none;align-items:center;gap:8px;
+  height:56px;min-width:56px;padding:0 18px 0 16px;
+  background:var(--primary);color:#fff;border-radius:999px;
+  box-shadow:0 12px 28px rgba(79,70,229,.4);
+  font-weight:600;font-size:14px;
+  overflow:hidden;
+  transition:padding .25s ease, min-width .25s ease, width .25s ease;
+}
+.fab__icon{display:grid;place-items:center;width:24px;height:24px}
+.fab__label{
+  white-space:nowrap;max-width:0;opacity:0;
+  transition:max-width .25s ease, opacity .2s ease, margin-left .2s ease;
+}
+.fab.is-expanded{padding:0 22px 0 18px}
+.fab.is-expanded .fab__label{max-width:140px;opacity:1;margin-left:2px}
+.fab:not(.is-expanded){padding:0;justify-content:center;width:56px;min-width:56px}
+@media (max-width:768px){.fab{display:flex}}
+
+/* ===== Pending update bar ===== */
 .pending-bar{
   position:fixed;right:20px;bottom:20px;z-index:120;
   background:var(--bg);border:1px solid var(--border);
@@ -144,8 +285,9 @@
 .pending-bar__sub{color:var(--muted);font-size:12px}
 .pending-bar__count{color:var(--primary);font-weight:600}
 .pending-bar__actions{display:flex;gap:6px;margin-left:auto}
-@media (max-width:600px){
-  .pending-bar{left:12px;right:12px;bottom:12px;min-width:0}
+@media (max-width:768px){
+  /* On mobile: sit above FAB, span width */
+  .pending-bar{left:12px;right:12px;bottom:84px;min-width:0}
 }
 
 /* ===== Create task — choose type ===== */
@@ -173,9 +315,7 @@
 .breadcrumb__sep{color:#CBD5E1}
 .breadcrumb__current{color:var(--text);font-weight:500}
 
-.task-details{
-  display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px;
-}
+.task-details{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px}
 @media (max-width:960px){.task-details{grid-template-columns:1fr}}
 
 .detail-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
@@ -188,24 +328,16 @@
 @media (max-width:520px){.detail-grid{grid-template-columns:1fr}}
 .detail-kv__k{color:var(--muted);font-size:12px;margin-bottom:2px}
 .detail-kv__v{font-weight:600;font-size:13.5px}
-
 .detail-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
 
 /* Timeline */
 .timeline{display:flex;flex-direction:column;gap:0;position:relative;padding-left:6px}
 .timeline__item{position:relative;padding:0 0 18px 22px}
 .timeline__item:last-child{padding-bottom:0}
-.timeline__item::before{
-  content:"";position:absolute;left:6px;top:6px;bottom:-2px;width:2px;background:var(--border);
-}
+.timeline__item::before{content:"";position:absolute;left:6px;top:6px;bottom:-2px;width:2px;background:var(--border)}
 .timeline__item:last-child::before{display:none}
-.timeline__dot{
-  position:absolute;left:0;top:2px;width:14px;height:14px;border-radius:50%;
-  background:var(--bg);border:2px solid var(--border);
-}
+.timeline__dot{position:absolute;left:0;top:2px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--border)}
 .timeline__item.is-done .timeline__dot{background:var(--success);border-color:var(--success)}
 .timeline__item.is-current .timeline__dot{background:var(--primary);border-color:var(--primary)}
 .timeline__title{font-weight:600;font-size:13px}
 .timeline__sub{color:var(--muted);font-size:12px}
-
-/* Create task layout reuses .form / .form__main / .form__side from forms.css */

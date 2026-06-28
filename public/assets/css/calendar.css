@@ -39,3 +39,18 @@
 .tt__event-title{font-weight:600;font-size:12px}
 .tt__event-room{font-size:11px;opacity:.9}
 .tt__event.is-now{outline:2px solid #fff;box-shadow:0 0 0 3px var(--primary)}
+
+.cal__head-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cal__nav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0 4px;
+}
