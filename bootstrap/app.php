@@ -2,7 +2,9 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
+use App\Http\Middleware\AuthenticatedJWT;
 use Illuminate\Foundation\Configuration\Middleware;
+
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -11,8 +13,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware -> alias(['jwt.check' => \App\Http\Middleware\CheckJWT::class,]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
+    
+ 
+

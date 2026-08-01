@@ -1,0 +1,41 @@
+app/
+│
+├── Http/
+│   └── Controllers/
+│       ├── AuthController.php
+│       ├── DashboardController.php
+│       ├── SubjectController.php
+│       ├── ClassController.php
+│       └── TaskController.php
+│
+├── Models/
+│   ├── User.php
+│   ├── Subject.php
+│   ├── Class.php
+│   └── Task.php
+│
+bootstrap/
+config/
+database/
+
+public/
+│
+├── assets/
+│   ├── css/
+│   ├── js/
+│   └── images/
+│
+└── index.php
+
+resources/
+│
+└── views/
+    ├── auth/
+    ├── dashboard/
+    ├── subjects/
+    ├── classes/
+    ├── tasks/
+    └── layouts/
+
+routes/
+└── web.php
