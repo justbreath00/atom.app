@@ -111,7 +111,7 @@ Developing Atomic Bits helped me gain hands-on experience with:
 
 | Tasks                      | Collaboration                      |
 | -------------------------- | ---------------------------------- |
-| ![](screenshots/tasks.png) | ![](screenshots/collaboration.png) |
+| ![](screenshots/tasks.png) | ![](screenshots/calendar.png) |
 
 ---
 
@@ -207,9 +207,16 @@ routes/
 
 # License
 
-This project is licensed under the MIT License.
 
-Feel free to use the code for learning purposes. Attribution is appreciated but not required.
+This project is licensed under the Apache License 2.0.
+
+Copyright © 2026 Renier Jhon
+
+You are allowed to use, modify, and distribute this project under the terms of the Apache License 2.0. Any distributed copies or substantial portions of this project must include the original copyright notice and license.
+
+For more information, see the full license:
+https://www.apache.org/licenses/LICENSE-2.0
+
 
 ---
 
