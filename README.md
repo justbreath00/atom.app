@@ -109,9 +109,9 @@ Developing Atomic Bits helped me gain hands-on experience with:
 | -------------------------- | ------------------------------ |
 | ![](screenshots/signin.png)| ![](screenshots/dashboard.png) |
 
-| Tasks                      | Collaboration                      |
-| -------------------------- | ---------------------------------- |
-| ![](screenshots/task.png)  | ![](screenshots/calendar.png) |
+| Tasks                      | Calendar                       |
+| -------------------------- | ------------------------------ |
+| ![](screenshots/task.png)  | ![](screenshots/calendar.png)  |
 
 ---
 
