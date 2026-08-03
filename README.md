@@ -105,13 +105,13 @@ Developing Atomic Bits helped me gain hands-on experience with:
 
 > Screenshots will be added as the project continues to evolve.
 
-| Login                      | Dashboard                      |
+| Signin                     | Dashboard                      |
 | -------------------------- | ------------------------------ |
-| ![](screenshots/login.png) | ![](screenshots/dashboard.png) |
+| ![](screenshots/signin.png)| ![](screenshots/dashboard.png) |
 
 | Tasks                      | Collaboration                      |
 | -------------------------- | ---------------------------------- |
-| ![](screenshots/tasks.png) | ![](screenshots/calendar.png) |
+| ![](screenshots/task.png)  | ![](screenshots/calendar.png) |
 
 ---
 
