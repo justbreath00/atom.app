@@ -77,6 +77,7 @@ Atomic Bits follows several security practices during development.
 * Request Validation
 * Secure Session Authentication
 * Protected Routes
+* Validation and Sanitization
 
 ---
 
@@ -210,7 +211,7 @@ routes/
 
 This project is licensed under the Apache License 2.0.
 
-Copyright © 2026 Renier Jhon
+Copyright © 2026 Jhon Renier Tambogon
 
 You are allowed to use, modify, and distribute this project under the terms of the Apache License 2.0. Any distributed copies or substantial portions of this project must include the original copyright notice and license.
 
